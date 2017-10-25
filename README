@@ -1,0 +1,9 @@
+Eric Foster
+
+In order to implement this code, within Kernel.c I added a few functions ad a structure. The structure served as my process table, which contained two variables of type int. Active, checks for an active process and stack is the stack pointer. The other functions serve to index the segment starting at 0x2000 to link to process table entry 0. 0x3000 -> 1, 0x4000 -> 2 etc.. until 0x9000 -> 7. In my executeProgram we were giving a new assembly code known as initializeProgram which replaced the previous launchProgram command. This serves to set the program to active and set it stack pointer while putting the program in a waiting queue. HandleTimerInterrupt(int segment, int sp) is the final function that has been added to the code. This is the main function that launches new programs and acts as the "scheduler". Eventually when the OS is run, you are able to execute programs simultaneously. 
+
+After this the shell now took a new command known as kill(). This is similiar to the unix command kill(), except this one takes an int as a parameter and tells the scheduler that the process is no longer active. Doing so will tell the scheduler to stop scheduling the program, thus terminating it. 
+
+----------------------------------------------------------------------------------------------------------------
+
+To test all of this out, just go into the terminal and type ./compileOS.sh, then run the simulator.jar file and boot from floppyA. when the Shell> prompts simply type "excecute phello" (phello is a program that prints hello world ten thousand times) while hello world is printing you can type any command you would like. Try typing kill 1, since phello would be the processID = 1 it should terminate the program while its running and then return back to the shell. 
